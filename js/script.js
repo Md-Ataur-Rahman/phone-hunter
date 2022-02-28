@@ -3,9 +3,11 @@ const inputField = document.getElementById('input-field');
 const cardsSection = document.getElementById('cards-section');
 const cardDetailsSection = document.getElementById('card-details-section');
 const errorText = document.getElementById('error-text');
+const sppinerDiv = document.getElementById('sppiner-div');
 
 //---Search Function----///
 const search = () => {
+    isSppining(true);
     cardsSection.textContent = '';
     const searchText = inputField.value;
     inputField.value = '';
@@ -48,12 +50,14 @@ const displayCards = (data) => {
         `;
         cardsSection.appendChild(div);
     });
+    isSppining(false);
 }
 
 
 //----- Card data -----//
 
 const cardData = (id) => {
+    isSppining(true);
     const url = `https://openapi.programming-hero.com/api/phone/${id}`;
     fetch(url)
         .then(res => res.json())
@@ -98,10 +102,23 @@ const displayCard = (data) => {
     `;
     cardDetailsSection.appendChild(div);
 
-    // lo tags create and Secsors value in li tags and appenChild thier parentElement 
+    // li tags create and Secsors value in li tags and appenChild thier parentElement 
     data.mainFeatures.sensors.forEach(element => {
         const li = document.createElement('li');
         li.innerText = element;
         document.getElementById('features').appendChild(li);
     });
+    isSppining(false);
+}
+
+// Spinner Funtion 
+
+const isSppining = (depend) => {
+    if(depend){
+        sppinerDiv.style.display = 'none';
+        sppinerDiv.style.display = 'block';
+    } else {
+        sppinerDiv.style.display = 'block';
+        sppinerDiv.style.display = 'none';
+    }
 }
