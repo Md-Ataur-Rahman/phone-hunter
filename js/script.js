@@ -49,10 +49,11 @@ const cardData = (id) => {
 // ----Display Card----//
 
 const displayCard = (data) => {
-    console.log(data);
+    // Create Div Element
     const div = document.createElement('div');
     div.classList.add("card");
 
+    // Inserting html element in div
     div.innerHTML = 
     `
         <div class='w-50 h-50 mx-auto py-3'>
@@ -82,6 +83,8 @@ const displayCard = (data) => {
         </div>
     `;
     cardDetailsSection.appendChild(div);
+
+    // lo tags create and Secsors value in li tags and appenChild thier parentElement 
     data.mainFeatures.sensors.forEach(element => {
         const li = document.createElement('li');
         li.innerText = element;
