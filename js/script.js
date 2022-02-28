@@ -2,22 +2,37 @@
 const inputField = document.getElementById('input-field');
 const cardsSection = document.getElementById('cards-section');
 const cardDetailsSection = document.getElementById('card-details-section');
+const errorText = document.getElementById('error-text');
 
 //---Search Function----///
 const search = () => {
+    cardsSection.textContent = '';
     const searchText = inputField.value;
     inputField.value = '';
-    fetch(`https://openapi.programming-hero.com/api/phones?search=${searchText}`)
+
+    if(searchText === '') {
+        errorText.innerText = 'Please Search of Phone Name';
+    }else{
+        fetch(`https://openapi.programming-hero.com/api/phones?search=${searchText}`)
         .then(res => res.json())
-        .then(data => displayCards(data.data));
+        .then(data => {
+            if(data.status ===  true) {
+                displayCards(data.data);
+                return;
+            } else {
+                errorText.innerText = `Not Found Of The ${searchText}`;
+                return;
+            }
+        });
+    }
 }
 
 // ---Display Cards---- ///
 const displayCards = (data) => {
+    errorText.innerText = '';
     data.slice(0, 20).forEach(element => {
         const div = document.createElement('div');
         div.classList.add("col");
-        // console.log(element);
         div.innerHTML = 
         `
             <div class="card">
@@ -39,7 +54,6 @@ const displayCards = (data) => {
 //----- Card data -----//
 
 const cardData = (id) => {
-    // console.log(id);
     const url = `https://openapi.programming-hero.com/api/phone/${id}`;
     fetch(url)
         .then(res => res.json())
