@@ -9,6 +9,8 @@ const sppinerDiv = document.getElementById('sppiner-div');
 const search = () => {
     isSppining(true);
     cardsSection.textContent = '';
+    cardDetailsSection.textContent = '';
+    
     const searchText = inputField.value;
     inputField.value = '';
 
@@ -76,7 +78,7 @@ const displayCard = (data) => {
     div.classList.add("card");
     div.classList.add("rounded");
 
-    // console.log(data);
+    console.log(data);
 
     // Inserting html element in div
     div.innerHTML = 
@@ -141,11 +143,15 @@ const displayCard = (data) => {
     
 
     // li tags create and Sensors value in li tags and appenChild thier parentElement 
-    if(data.hasOwnProperty('sensors')){
+    if(data.mainFeatures.hasOwnProperty('sensors')){
+        const h3 = document.createElement('h3');
+        h3.innerText = 'Sensors: ';
+
+        document.getElementById('features').appendChild(h3);
         data.mainFeatures.sensors.forEach(element => {
+            console.log(element);
             const li = document.createElement('li');
             li.innerText = element;
-            document.getElementById('features').innerHTML = '<h3>Sensors: </h3>'
             document.getElementById('features').appendChild(li);
         });
     }else{
