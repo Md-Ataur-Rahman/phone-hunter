@@ -35,6 +35,9 @@ const displayCards = (data) => {
     data.slice(0, 20).forEach(element => {
         const div = document.createElement('div');
         div.classList.add("col");
+        div.classList.add("rounded");
+        
+
         div.innerHTML = 
         `
             <div class="card">
@@ -67,9 +70,13 @@ const cardData = (id) => {
 // ----Display Card----//
 
 const displayCard = (data) => {
+    cardDetailsSection.textContent = '';
     // Create Div Element
     const div = document.createElement('div');
     div.classList.add("card");
+    div.classList.add("rounded");
+
+    // console.log(data);
 
     // Inserting html element in div
     div.innerHTML = 
@@ -81,33 +88,69 @@ const displayCard = (data) => {
             <h5 class="card-title">Brand: ${data.brand}</h5>
             <p class="card-text">Phone Name: ${data.name}</p>
             <p class="card-text">Realesed Date: ${data.releaseDate!==''||data.releaseDate!==null?data.releaseDate:'No Release Data Found'}</p>
-            <h4>Main Features:</h4>
+            <h4>Main Features:</h4> 
             <ul id="features">
                 <li>Chip-Set: ${data.mainFeatures.chipSet}</li>
                 <li>Display-Size: ${data.mainFeatures.displaySize}</li>
                 <li>Memory: ${data.mainFeatures.memory}</li>
                 <li>Storage: ${data.mainFeatures.storage}</li>
-                <h3>Sensors:</h3>
             </ul>
-            <h4>Others:</h4>
-            <ul>
-                <li>Bluetooth: ${data.others.Bluetooth}</li>
-                <li>GPS: ${data.others.GPS}</li>
-                <li>NFC: ${data.others.NFC}</li>
-                <li>Radio: ${data.others.Radio}</li>
-                <li>USB: ${data.others.USB}</li>
-                <li>WLAN: ${data.others.WLAN}</li>
-            </ul>
+            <div id="others">
+                
+            </div>
         </div>
     `;
     cardDetailsSection.appendChild(div);
 
-    // li tags create and Secsors value in li tags and appenChild thier parentElement 
-    data.mainFeatures.sensors.forEach(element => {
-        const li = document.createElement('li');
-        li.innerText = element;
-        document.getElementById('features').appendChild(li);
-    });
+    // If Has Others Key Or Not..Condition
+    if(data.hasOwnProperty('others')) {
+        document.getElementById('others').innerHTML = 
+        `
+        <h4>Others:</h4>
+        <ul>
+            <li>Bluetooth: ${data.others.Bluetooth}</li>
+            <li>GPS: ${data.others.GPS}</li>
+            <li>NFC: ${data.others.NFC}</li>
+            <li>Radio: ${data.others.Radio}</li>
+            <li>USB: ${data.others.USB}</li>
+            <li>WLAN: ${data.others.WLAN}</li>
+        </ul>
+        `;
+    } else {
+        return;
+    }
+
+
+    // If Has Others Key Or Not..Condition
+    if(data.hasOwnProperty('others')) {
+        document.getElementById('others').innerHTML = 
+        `
+        <h4>Others:</h4>
+        <ul>
+            <li>Bluetooth: ${data.others.Bluetooth}</li>
+            <li>GPS: ${data.others.GPS}</li>
+            <li>NFC: ${data.others.NFC}</li>
+            <li>Radio: ${data.others.Radio}</li>
+            <li>USB: ${data.others.USB}</li>
+            <li>WLAN: ${data.others.WLAN}</li>
+        </ul>
+        `;
+    } else {
+        return;
+    }
+    
+
+    // li tags create and Sensors value in li tags and appenChild thier parentElement 
+    if(data.hasOwnProperty('sensors')){
+        data.mainFeatures.sensors.forEach(element => {
+            const li = document.createElement('li');
+            li.innerText = element;
+            document.getElementById('features').innerHTML = '<h3>Sensors: </h3>'
+            document.getElementById('features').appendChild(li);
+        });
+    }else{
+        return;
+    }
     isSppining(false);
 }
 
