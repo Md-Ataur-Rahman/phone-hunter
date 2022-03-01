@@ -78,7 +78,7 @@ const displayCard = (data) => {
     div.classList.add("card");
     div.classList.add("rounded");
 
-
+   
     // Inserting html element in div
     div.innerHTML = 
     `
@@ -88,7 +88,7 @@ const displayCard = (data) => {
         <div class="card-body">
             <h5 class="card-title">Brand: ${data.brand}</h5>
             <p class="card-text">Phone Name: ${data.name}</p>
-            <p class="card-text">Realesed Date: ${data.releaseDate!==''||data.releaseDate!==null?data.releaseDate:'No Release Data Found'}</p>
+            <p class="card-text">Realesed Date: ${data.releaseDate !== '' ? data.releaseDate : 'No Release Data Found'}</p>
             <h4>Main Features:</h4> 
             <ul id="features">
                 <li>Chip-Set: ${data.mainFeatures.chipSet}</li>
