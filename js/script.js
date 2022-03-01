@@ -10,7 +10,7 @@ const search = () => {
     isSppining(true);
     cardsSection.textContent = '';
     cardDetailsSection.textContent = '';
-    
+
     const searchText = inputField.value;
     inputField.value = '';
 
@@ -78,7 +78,6 @@ const displayCard = (data) => {
     div.classList.add("card");
     div.classList.add("rounded");
 
-    console.log(data);
 
     // Inserting html element in div
     div.innerHTML = 
@@ -149,7 +148,6 @@ const displayCard = (data) => {
 
         document.getElementById('features').appendChild(h3);
         data.mainFeatures.sensors.forEach(element => {
-            console.log(element);
             const li = document.createElement('li');
             li.innerText = element;
             document.getElementById('features').appendChild(li);
